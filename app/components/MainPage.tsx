@@ -1,5 +1,6 @@
 "use client";
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function MainPage() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -58,7 +59,7 @@ export default function MainPage() {
                             onChange={handleChange}
                         />
                         {searchTerm.trim() !== '' && (
-                            <table className="absolute bg-white border border-black mt-2">
+                            <table className="absolute bg-white border border-black mt-2 w-30 h-1">
                                 <thead>
                                     <tr>
                                         <th className="px-2 py-2">Search Results</th>
@@ -68,9 +69,15 @@ export default function MainPage() {
                                     {bookData.map((book, index) => (
                                         <tr key={index} className='hover:bg-gray-200'>
                                              <td className="px-4 py-2">
-                                                <img src={book.image} alt={book.name} className="w-16 h-auto mx-auto" />
+                                                <Link href={`/books/${book.name}`}>
+                                                        <img src={book.image} alt={book.name} className="w-16 h-auto mx-auto" />
+                                                </Link>
                                             </td>
-                                            <td className="px-4 py-2 text-red-400 font-bold break-all">{book.name}</td>
+                                            <td className="px-4 py-2 text-red-400 font-bold break-all">
+                                                <Link href={`/books/${book.name}`}>
+                                                        {book.name}
+                                                </Link>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
