@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import Link from 'next/link';
+import { info } from 'console';
 
 export default function MainPage() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -23,10 +24,12 @@ export default function MainPage() {
             if (data && data.items) {
                 // Extract image and name pairs from the response
                 const bookInfo = data.items.slice(0, 4).map(item => ({
-                    image: item.volumeInfo.imageLinks?.thumbnail,
-                    name: item.volumeInfo.title
+                    id: item.id || '',
+                    image: item.volumeInfo.imageLinks?.thumbnail || '',
+                    name: item.volumeInfo.title || '',
                 }));
                 setBookData(bookInfo);
+             
             } else {
                 setBookData([]);
             }
@@ -67,6 +70,7 @@ export default function MainPage() {
                                 </thead>
                                 <tbody>
                                     {bookData.map((book, index) => (
+                                        console.log("book", book),
                                         <tr key={index} className='hover:bg-gray-200'>
                                              <td className="px-4 py-2">
                                                 <Link href={`/books/${book.name}`}>
@@ -74,7 +78,11 @@ export default function MainPage() {
                                                 </Link>
                                             </td>
                                             <td className="px-4 py-2 text-red-400 font-bold break-all">
-                                                <Link href={`/books/${book.name}`}>
+                                                {/* <Link href={`/books/${book.name}`}> */}
+                                                <Link href={{
+                                                    pathname: '/books/[id]',
+                                                    query: { id: book.id, image: book.image, name: book.name },
+                                                }} as={`/books/${book.id}`}>
                                                         {book.name}
                                                 </Link>
                                             </td>
