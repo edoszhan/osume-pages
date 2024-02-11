@@ -1,5 +1,5 @@
 "use client";
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'next/navigation';
 
 export default function BookPage() {
     const searchParams = useSearchParams();
@@ -7,12 +7,15 @@ export default function BookPage() {
     const book_name = searchParams.get('book_name');
     const book_image = searchParams.get('book_image');
 
-    return (
+    return (    
         <div>
             <h1>Book Page</h1>
             <p>Book ID: {book_id}</p>
             <p>Book Name: {book_name}</p>
-            <img src={book_image} alt={book_name} />
+            <div className='mx-auto'>
+                <img src={book_image} alt={book_name} />
+            </div>
+            
         </div>
     );
 }
