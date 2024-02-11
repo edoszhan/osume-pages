@@ -78,10 +78,9 @@ export default function MainPage() {
                                                 </Link>
                                             </td>
                                             <td className="px-4 py-2 text-red-400 font-bold break-all">
-                                                {/* <Link href={`/books/${book.name}`}> */}
                                                 <Link href={{
-                                                    pathname: '/books/[id]',
-                                                    query: { id: book.id, image: book.image, name: book.name },
+                                                    pathname: '/books/[book_id]',
+                                                    query: { book_id: book.id, book_image: book.image, book_name: book.name },
                                                 }} as={`/books/${book.id}`}>
                                                         {book.name}
                                                 </Link>
