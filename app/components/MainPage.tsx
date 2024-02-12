@@ -1,11 +1,21 @@
 "use client";
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function MainPage() {
+    const router = useRouter();
     const [searchTerm, setSearchTerm] = useState('');
     const [bookData, setBookData] = useState([]);
+
+    const handleBookClick = (book) => {
+        router.push({
+            pathname: '/books/[book_id]',
+            query: { book_id: book.id, book_image: book.image, book_name: book.name },
+        });
+    };
+
+    
 
     const handleChange = async (event) => {
         const value = event.target.value;
@@ -37,6 +47,8 @@ export default function MainPage() {
             console.error('Error fetching book data:', error);
         }
     };
+
+    
 
     return (
         <>
@@ -81,8 +93,8 @@ export default function MainPage() {
                                                 <Link href={{
                                                     pathname: '/books/[book_id]',
                                                     query: { book_id: book.id, book_image: book.image, book_name: book.name },
-                                                }} as={`/books/${book.id}}`}>
-                                                     {/* }} as={`/books/${book.id}?book_id=${book.id}&book_name=${book.name}&book_image=${book.image}`}> */}
+                                                // }} as={`/books/${book.id}}`}>
+                                                     }} as={`/books/${book.id}?book_id=${book.id}&book_name=${book.name}&book_image=${book.image}`}>
                                                       <div>
                                                         {book.name}
                                                     </div>

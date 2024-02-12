@@ -1,5 +1,6 @@
 "use client";
 import { useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 
 export default function BookPage() {
     const searchParams = useSearchParams();
