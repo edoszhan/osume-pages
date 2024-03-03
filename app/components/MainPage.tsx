@@ -8,12 +8,27 @@ export default function MainPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [bookData, setBookData] = useState([]);
 
-    const handleBookClick = (book) => {
-        router.push({
-            pathname: '/books/[book_id]',
-            query: { book_id: book.id, book_image: book.image, book_name: book.name },
-        });
-    };
+
+    const [trendingBooks, setTrendingBooks] = useState([
+        // Step 2: Sample data for trending books
+        { id: '1', image: 'https://via.assets.so/game.png?id=1&q=95&w=360&h=360', name: 'Trending Book 1' },
+        { id: '2', image: 'https://via.assets.so/game.png?id=2&q=95&w=360&h=360', name: 'Trending Book 2' },
+        { id: '3', image: 'https://via.assets.so/game.png?id=5&q=95&w=360&h=360', name: 'Trending Book 3' },
+    ]);
+
+    const [allTimeBooks, setAllTimeBooks] = useState([
+        // Step 2: Sample data for trending books
+        { id: '1', image: 'https://via.assets.so/game.png?id=7&q=95&w=360&h=360&fit=fill', name: 'All TIME POPULAR 1' },
+        { id: '2', image: 'https://via.assets.so/game.png?id=8&q=95&w=360&h=360&fit=fill', name: 'All TIME POPULAR 2' },
+        { id: '3', image: 'https://via.assets.so/game.png?id=9&q=95&w=360&h=360&fit=fill', name: 'All TIME POPULAR 3' },
+    ]);
+
+    // const handleBookClick = (book) => {
+    //     router.push({
+    //         pathname: '/books/[book_id]',
+    //         query: { book_id: book.id, book_image: book.image, book_name: book.name },
+    //     });
+    // };
 
     
 
@@ -107,7 +122,28 @@ export default function MainPage() {
                         )}
                         <br/>
                         <br/>
-                        <p className="text-lg">This is the main page of the app.</p>
+                        <div>
+                            <h2 className="text-xl font-bold mb-4">TRENDING NOW</h2>
+                            <div className="flex overflow-x-scroll pb-4">
+                                {trendingBooks.map((book, index) => (
+                                    <div key={index} className="flex-none w-48 h-64 mr-4">
+                                        <img src={book.image} alt={book.name} className="w-full h-auto" />
+                                        <div className="text-center mt-2">{book.name}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="mt-1">
+                            <h2 className="text-xl font-bold mb-4">ALL TIME POPULAR</h2>
+                            <div className="flex overflow-x-scroll pb-4">
+                                {allTimeBooks.map((book, index) => (
+                                    <div key={index} className="flex-none w-48 h-64 mr-4">
+                                        <img src={book.image} alt={book.name} className="w-full h-auto" />
+                                        <div className="text-center mt-2">{book.name}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
