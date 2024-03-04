@@ -1,21 +1,44 @@
 "use client";
 import { useRouter } from 'next/router';
-import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
-export default function BookPage() {
+const BookDetails = () => {
     const router = useRouter();
-    const { book_id, book_name, book_image, description } = router.query;
+    const { book_id} = router.query;
+    console.log(book_id);
+    const [bookDetails, setBookDetails] = useState(null);
 
-    return (    
+    useEffect(() => {
+        if (!book_id) return;
+        const fetchData = async () => {
+            const data = await fetchBookDetails(book_id);
+            setBookDetails(data);
+            console.log("data", data);
+        };
+        fetchData();
+    }, [book_id]);
+
+    if (!bookDetails) return <div>Loading...</div>;
+
+    return (
         <div>
-            <h1>Book Page</h1>
-            <p>Book ID: {book_id}</p>
-            <p>Book Name: {book_name}</p>
-            <p>Book Description: {description}</p>
-
-            <div className='mx-auto'>
-                <Image src={book_image} alt={book_name} width={500} height={300} />
-            </div>
+            <h1>{bookDetails.volumeInfo.title}</h1>
+            <p>Authors: {bookDetails.volumeInfo.authors.join(', ')}</p>
+            <p>Published Date: {bookDetails.volumeInfo.publishedDate}</p>
         </div>
     );
+};
+
+async function fetchBookDetails(book_id) {
+    try {
+        const response = await fetch(`https://www.googleapis.com/books/v1/volumes/${book_id}?key=AIzaSyBIODMSnPXpcnSvhMGk-FpSlw9RXEMqVJs`);
+        const data = await response.json();
+        console.log("fefef");
+        return data;
+    } catch (error) {
+        console.error('Error fetching book details:', error);
+        return null;
+    }
 }
+
+export default BookDetails;

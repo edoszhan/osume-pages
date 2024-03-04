@@ -52,9 +52,6 @@ export default function MainPage() {
                     id: item.id || '',
                     image: item.volumeInfo.imageLinks?.thumbnail || '',
                     name: item.volumeInfo.title || '',
-                    authors: item.volumeInfo.authors || [], 
-                    publication_date: item.volumeInfo.publishedDate || '',
-                    description: item.volumeInfo.description || '',
                 }));
                 console.log("bookInfo", bookInfo)
                 setBookData(bookInfo);
@@ -113,11 +110,7 @@ export default function MainPage() {
                                                     pathname: '/books/[book_id]',
                                                     // query: { book_id: book.id, book_image: book.image, book_name: book.name },
                                                     query: { 
-                                                        book_image: book.image, 
-                                                        book_name: book.name,
-                                                        authors: book.authors.join(','),
-                                                        publication_date: book.publication_date,
-                                                        description: book.description,
+                                                        book_id: book.id,
                                                     },
                                                 }} as={`/books/${book.id}}`}>
                                                       <div>
