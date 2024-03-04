@@ -52,7 +52,11 @@ export default function MainPage() {
                     id: item.id || '',
                     image: item.volumeInfo.imageLinks?.thumbnail || '',
                     name: item.volumeInfo.title || '',
+                    authors: item.volumeInfo.authors || [], 
+                    publication_date: item.volumeInfo.publishedDate || '',
+                    description: item.volumeInfo.description || '',
                 }));
+                console.log("bookInfo", bookInfo)
                 setBookData(bookInfo);
              
             } else {
@@ -79,7 +83,7 @@ export default function MainPage() {
                                 border
                                 border-black
                                 rounded
-                                text-sm
+                                text-lg
                                 pl-3
                                 focus:outline-none
                             "
@@ -107,9 +111,15 @@ export default function MainPage() {
                                             <td className="px-4 py-2 text-red-400 font-bold break-all">
                                                 <Link href={{
                                                     pathname: '/books/[book_id]',
-                                                    query: { book_id: book.id, book_image: book.image, book_name: book.name },
-                                                // }} as={`/books/${book.id}}`}>
-                                                     }} as={`/books/${book.id}?book_id=${book.id}&book_name=${book.name}&book_image=${book.image}`}>
+                                                    // query: { book_id: book.id, book_image: book.image, book_name: book.name },
+                                                    query: { 
+                                                        book_image: book.image, 
+                                                        book_name: book.name,
+                                                        authors: book.authors.join(','),
+                                                        publication_date: book.publication_date,
+                                                        description: book.description,
+                                                    },
+                                                }} as={`/books/${book.id}}`}>
                                                       <div>
                                                         {book.name}
                                                     </div>

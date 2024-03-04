@@ -1,0 +1,32 @@
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.bookInfo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.bookImage {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.bookDetails {
+    text-align: left;
+    max-width: 400px;
+}
+
+.bookDetails p {
+    margin: 10px 0;
+}
+
+.bookDetails p strong {
+    font-weight: bold;
+}
